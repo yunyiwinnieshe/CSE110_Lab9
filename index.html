@@ -87,21 +87,156 @@
     </section>
   </main>
 
+  <!-- <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+    <script>
+      window.TrackJS && TrackJS.install({ 
+        token: "1b655b23fd9d4d34913b8beb79ccf75c"
+        // for more configuration options, see https://docs.trackjs.com
+      });
+  </script> -->
+
   <script>
+    class MyError extends Error{
+      constructor(message){
+        super(message);
+        this.name='this is an error';
+      }
+    }
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
       let output = document.querySelector('output');
-      let firstNum = document.querySelector('#first-num').value;
-      let secondNum = document.querySelector('#second-num').value;
-      let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
-    });
+      try{
+        let firstNum = document.querySelector('#first-num').value;
+        let secondNum = document.querySelector('#second-num').value;
+        let operator = document.querySelector('#operator').value;
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      }
+      catch(error){
+        // throw("You have the wrong inputs, check again");
+        throw new MyError("You have the wrong inputs, check again")
+      }
+      
+    });    
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
     // Start your code here
     // You may move this JS to another file if you wish
+    let logButton = document.getElementById('error-btns').querySelectorAll('button')[0];
+    logButton.addEventListener('click', function(){
+      console.log("Console Log Demo");
+    });
+
+    let errorButton = document.getElementById('error-btns').querySelectorAll('button')[1];
+    errorButton.addEventListener('click', function(){
+      console.error("Console Error Demo");
+    });
+
+    let countButton = document.getElementById('error-btns').querySelectorAll('button')[2];
+    countButton.addEventListener('click', function(){
+      console.count("Console Count Demo");
+    });
+
+    let warnButton = document.getElementById('error-btns').querySelectorAll('button')[3];
+    warnButton.addEventListener('click', function(){
+      console.warn("Console Warning Demo");
+    });
+
+    let assertButton = document.getElementById('error-btns').querySelectorAll('button')[4];
+    assertButton.addEventListener('click', function(){
+      let x=5;
+      let y=5;
+      console.assert(x+y == 11, "Result is false");
+    });
+    
+    let clearButton = document.getElementById('error-btns').querySelectorAll('button')[5];
+    clearButton.addEventListener('click', function(){
+      console.clear();
+    });
+
+    let dirButton = document.getElementById('error-btns').querySelectorAll('button')[6];
+    dirButton.addEventListener('click', function(){
+      console.dir(dirButton);
+    });
+
+    let dirxmlButton = document.getElementById('error-btns').querySelectorAll('button')[7];
+    dirxmlButton.addEventListener('click', function(){
+      console.dirxml(document.getElementById('error-btns').querySelectorAll('button')[7]);
+    });
+
+    let groupStartButton = document.getElementById('error-btns').querySelectorAll('button')[8];
+    groupStartButton.addEventListener('click', function(){
+      console.group();
+    });
+
+    let groupEndButton = document.getElementById('error-btns').querySelectorAll('button')[9];
+    groupEndButton.addEventListener('click', function(){
+      console.groupEnd();
+    });
+
+    let tableButton = document.getElementById('error-btns').querySelectorAll('button')[10];
+    tableButton.addEventListener('click', function(){
+      function ClassInfo(className, classNum){
+        this.className = className;
+        this.classNum = classNum;
+      }
+
+      const cse110 = new ClassInfo("Software Engineering", 110);
+      const cse130 = new ClassInfo("Prgramming Language", 130);
+      const cse112 = new ClassInfo("Advanced Software Engineering", 112);
+      console.table([cse110, cse130, cse112]);
+    });
+
+    let timerStartButton = document.getElementById('error-btns').querySelectorAll('button')[11];
+    timerStartButton.addEventListener('click', function(){
+      console.time();
+    });
+
+    let timerEndButton = document.getElementById('error-btns').querySelectorAll('button')[12];
+    timerEndButton.addEventListener('click', function(){
+      console.timeEnd();
+    });
+
+    let traceButton = document.getElementById('error-btns').querySelectorAll('button')[13];
+    traceButton.addEventListener('click', function(){
+      function deep(){
+        function deeper(){
+          function deepest(){
+            console.trace(traceButton);
+          };
+          deepest();
+        };
+        deeper();
+      };
+      deep();
+      
+    });
+
+    
+
+    let globalButton = document.getElementById('error-btns').querySelectorAll('button')[14];
+    globalButton.addEventListener('click', function(){
+      // console.log("Sadly an error happened my friend");
+      // window.onerror = function() {
+	    //   console.log("There is an error");
+      // }
+      // window.onerror = function(message, url, linenumber) {
+	    //   alert('JavaScript error: ' + message + ' on line ' + linenumber + ' for ' + url);
+      // }
+
+      let domButton = document.getElementById('error-btns').querySelectorAll('button')[15];
+        domButton.addEventListener('click', function(){
+          console.log("do nothing");
+      });
+
+      
+    });
+
+    window.onerror = function(message, source, lineno, colno, error) {
+      console.log('Sadly an error happened my friend');
+    }
+
   </script>
 </body>
 
